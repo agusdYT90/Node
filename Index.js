@@ -5,14 +5,14 @@ function Menu() {
     const args = process.argv.slice(2);
     const comando = args[0];
     const id = args[1];
-    const nombre = args[2];
 
     let Producto = {
-        title: nombre,
-        price: 200.50,
-        description: 'Descripción del producto',
-        image: 'https://example.com',
-        category: 'general'
+        id: id,
+        title: args[2].length > 2 ? args[2] : 'Producto de prueba',
+        price: args[3] > 0 ? args[3] : 0,
+        category: args[4].length > 2 ? args[4] : 'general',
+        description: args[5] ? args[5] : 'Descripción del producto',
+        image: args[6] ? args[6] : 'https://example.com'
     };
 
     switch (comando) {

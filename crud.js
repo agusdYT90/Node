@@ -7,7 +7,7 @@ async function obtenerProductos() {
         );
 
         const data = await response.json();
-        console.log('Productos obtenidos',data);
+        console.log('Productos obtenidos', data);
     }
     catch (error) {
         console.error('Error al obtener todos los productos:', error);
@@ -23,7 +23,7 @@ async function obtenerProducto(id) {
         );
 
         const data = await response.json();
-        console.log('Producto obtenido:',data);
+        console.log('Producto obtenido:', data);
     }
     catch (error) {
         console.error('Error al obtener el producto:', error);
@@ -43,7 +43,7 @@ async function agregarProducto(producto) {
         );
 
         const data = await response.json();
-        console.log('Producto agregado:',data);
+        console.log('Producto agregado:', data);
     }
     catch (error) {
         console.error('Error al agregar el producto:', error);
@@ -63,7 +63,7 @@ async function actualizarProducto(id, producto) {
         );
 
         const data = await response.json();
-        console.log('Producto actualizado:',data);
+        console.log('Producto actualizado:', data);
     }
     catch (error) {
         console.error('Error al actualizar el producto:', error);
@@ -78,8 +78,9 @@ async function eliminarProducto(id) {
             }
         );
 
-        const data = await response.json();
-        console.log('Producto eliminado:',data);
+        if (response.ok) {
+            console.log(`Producto con el ID ${id} fue eliminado correctamente.`);
+        }
     }
     catch (error) {
         console.error('Error al eliminar el producto:', error);
@@ -94,8 +95,9 @@ async function eliminarProductos() {
             }
         );
 
-        const data = await response.json();
-        console.log('Todos los productos fueron eliminados:',data);
+        if (response.ok) {
+            console.log('Todos los productos fueron eliminados correctamente');
+        }
     }
     catch (error) {
         console.error('Error al eliminar todos los productos:', error);
