@@ -1,4 +1,4 @@
-import { obtenerProducto, obtenerProductos, eliminarProducto, eliminarProductos, agregarProducto, actualizarProducto } from "./crud.js";
+import { obtenerProducto, obtenerProductos, eliminarProducto, agregarProducto, actualizarProducto } from "./crud.js";
 import Servidor from "./app.js";
 
 function Menu() {
@@ -8,9 +8,9 @@ function Menu() {
 
     let Producto = {
         id: id,
-        title: args[2].length > 2 ? args[2] : 'Producto de prueba',
+        title: args[2]?.length > 2 ? args[2] : 'Producto de prueba',
         price: args[3] > 0 ? args[3] : 0,
-        category: args[4].length > 2 ? args[4] : 'general',
+        category: args[4]?.length > 2 ? args[4] : 'General',
         description: args[5] ? args[5] : 'Descripción del producto',
         image: args[6] ? args[6] : 'https://example.com'
     };
@@ -32,7 +32,7 @@ function Menu() {
             if (id) {
                 actualizarProducto(id, Producto);
             } else {
-                console.log('Por favor, proporciona un ID para actualizar un producto.');
+                console.log('Por favor, proporciona un ID para actualizar un producto');
             }
             break;
 
@@ -40,16 +40,16 @@ function Menu() {
             if (id) {
                 eliminarProducto(id);
             } else {
-                eliminarProductos();
+                console.log('Por favor, proporciona un ID para eliminar un producto');
             }
             break;
 
-        case 'server':
+        case 'servidor':
             Servidor();
             break;
 
         default:
-            console.log('Comando no reconocido. Usa create, read, update, delete o server.');
+            console.log('Comando no reconocido. Usa agregar, obtener, actualizar, eliminar o servidor.');
             break;
     }
 }

@@ -7,7 +7,7 @@ async function obtenerProductos() {
         );
 
         const data = await response.json();
-        console.log('Productos obtenidos', data);
+        console.log('Productos obtenidos:', data);
     }
     catch (error) {
         console.error('Error al obtener todos los productos:', error);
@@ -79,7 +79,7 @@ async function eliminarProducto(id) {
         );
 
         if (response.ok) {
-            console.log(`Producto con el ID ${id} fue eliminado correctamente.`);
+            console.log(`Producto con el ID ${id} fue eliminado correctamente`);
         }
     }
     catch (error) {
@@ -87,21 +87,4 @@ async function eliminarProducto(id) {
     }
 }
 
-async function eliminarProductos() {
-    try {
-        const response = await fetch('https://fakestoreapi.com/products',
-            {
-                method: 'DELETE'
-            }
-        );
-
-        if (response.ok) {
-            console.log('Todos los productos fueron eliminados correctamente');
-        }
-    }
-    catch (error) {
-        console.error('Error al eliminar todos los productos:', error);
-    }
-}
-
-export { obtenerProductos, obtenerProducto, agregarProducto, actualizarProducto, eliminarProducto, eliminarProductos };
+export { obtenerProductos, obtenerProducto, agregarProducto, actualizarProducto, eliminarProducto };
