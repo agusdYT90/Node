@@ -1,10 +1,19 @@
-import express from 'express';
-const app = express();
+import express, { json } from 'express';
 
-app.get('/', (req, res) => {
-    res.send('¡Hola desde Express!');
-});
+function Servidor() {
 
-app.listen(3000, () => {
-    console.log('Servidor escuchando en http://localhost:3000');
-});
+    const app = express();
+    const PORT = 3000;
+
+    app.use(json());
+
+    app.get('/', (req, res) => {
+        res.send('¡Servidor Node.js con Express funcionando!');
+    });
+
+    app.listen(PORT, () => {
+        console.log(`Servidor escuchando en http://localhost:${PORT}`);
+    });
+}
+
+export default Servidor;
