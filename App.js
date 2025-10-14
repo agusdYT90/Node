@@ -8,7 +8,27 @@ function Servidor() {
     app.use(json());
 
     app.get('/', (req, res) => {
-        res.send('¡Servidor Node.js con Express funcionando!');
+        res.send('Servidor Node.js con Express funcionando');
+    });
+
+    app.use((req, res, next) => {
+        console.log(`Datos recibidos:  ${req.method} ${req.url}`);
+        next();
+    });
+
+    app.get('/json', (req, res) => {
+        res.send({
+            Productos: [
+                {
+                    nombre: "arroz",
+                    pricio: 200
+                },
+                {
+                    nombre: "queso",
+                    precio: 100
+                }
+            ]
+        });
     });
 
     app.listen(PORT, () => {

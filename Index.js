@@ -1,5 +1,6 @@
 import { obtenerProducto, obtenerProductos, eliminarProducto, agregarProducto, actualizarProducto } from "./crud.js";
 import Servidor from "./app.js";
+import help from "./help.js";
 
 function Menu() {
     const args = process.argv.slice(2);
@@ -48,8 +49,12 @@ function Menu() {
             Servidor();
             break;
 
+        case 'help':
+            help();
+            break;
+
         default:
-            console.log('Comando no reconocido. Usa agregar, obtener, actualizar, eliminar o servidor.');
+            console.log('Comando no reconocido. Usa "npm start help" para conocer los comandos');
             break;
     }
 }
