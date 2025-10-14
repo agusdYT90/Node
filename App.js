@@ -1,6 +1,6 @@
 import express, { json } from 'express';
 
-function Servidor() {
+export default function Servidor() {
 
     const app = express();
     const PORT = 3000;
@@ -35,5 +35,3 @@ function Servidor() {
         console.log(`Servidor escuchando en http://localhost:${PORT}`);
     });
 }
-
-export default Servidor;
