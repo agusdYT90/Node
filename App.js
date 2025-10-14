@@ -17,18 +17,20 @@ export default function Servidor() {
     });
 
     app.get('/json', (req, res) => {
-        res.send({
-            Productos: [
-                {
-                    nombre: "arroz",
-                    pricio: 200
-                },
-                {
-                    nombre: "queso",
-                    precio: 100
-                }
-            ]
-        });
+        res.send(
+            {
+                Productos: [
+                    {
+                        nombre: "arroz",
+                        pricio: 200
+                    },
+                    {
+                        nombre: "queso",
+                        precio: 100
+                    }
+                ]
+            }
+        );
     });
 
     app.listen(PORT, () => {
