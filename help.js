@@ -24,7 +24,7 @@ Productos:
 
         Headers: { "Authorization": "Bearer <token>" }
         Body (JSON): {
-            "id": "opcional, personalizado",
+            "id": "opcional",
             "name": "string",
             "price": number,
             "stock": number,
