@@ -6,12 +6,46 @@ email: 'test@gmail.com',
 password: '123456'
 
 Login:
-    POST /auth/login
-    Body: { "email": "string", "password": "string" }
+    POST http://localhost:3000/auth/login
+
+    Body (JSON): { "email": "string", "password": "string" }
+    -> Devuelve { token }
 
 Productos:
-    GET    api/products           -> Lista todos los productos
-    GET    api/products/:id       -> Obtiene producto por ID
-    POST   api/products/update    -> Actualiza un producto (requiere token)
-    DELETE api/products/:id       -> Elimina producto (requiere token)
+    GET http://localhost:3000/api/products
+
+        -> Lista todos los productos
+
+    GET http://localhost:3000/api/products/:id
+
+        -> Obtiene producto por ID
+
+    POST http://localhost:3000/api/products
+
+        Headers: { "Authorization": "Bearer <token>" }
+        Body (JSON): {
+            "id": "opcional, personalizado",
+            "name": "string",
+            "price": number,
+            "stock": number,
+            "description": "string"
+        }
+        -> Crea un producto (requiere token)
+
+    PUT http://localhost:3000/api/products/:id
+
+        Headers: { "Authorization": "Bearer <token>" }
+        Body (JSON): {
+            "name": "string",
+            "price": number,
+            "stock": number,
+            "description": "string"
+        }
+        -> Actualiza un producto (requiere token)
+
+    DELETE http://localhost:3000/api/products/:id
+
+        Headers: { "Authorization": "Bearer <token>" }
+        -> Elimina producto (requiere token)
 `);
+
