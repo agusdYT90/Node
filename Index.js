@@ -1,62 +1,54 @@
-import { obtenerProducto, obtenerProductos, eliminarProducto, agregarProducto, actualizarProducto } from "./crud.js";
-import Servidor from "./app.js";
-import help from "./help.js";
+import 'dotenv/config';
 
-function Menu() {
-    const args = process.argv.slice(2);
-    const comando = args[0];
-    const id = args[1];
+import express from 'express';
+import open from 'open';
+import cors from 'cors';
+import bodyParser from 'body-parser';
 
-    let Producto = {
-        id: id,
-        title: args[2]?.length > 2 ? args[2] : 'Producto de prueba',
-        price: args[3] > 0 ? args[3] : 0,
-        category: args[4]?.length > 2 ? args[4] : 'General',
-        description: args[5] ? args[5] : 'Descripción del producto',
-        image: args[6] ? args[6] : 'https://example.com'
-    };
+import productsRouter from './src/routes/products-Routes.js';
+import authRouter from './src/routes/auth-Routes.js';
 
-    switch (comando) {
-        case 'agregar':
-            agregarProducto(Producto);
-            break;
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-        case 'obtener':
-            if (id) {
-                obtenerProducto(id);
-            } else {
-                obtenerProductos();
-            }
-            break;
+app.use(cors({
+    origin: `http://localhost:${PORT}`,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
-        case 'actualizar':
-            if (id) {
-                actualizarProducto(id, Producto);
-            } else {
-                console.log('Por favor, proporciona un ID para actualizar un producto');
-            }
-            break;
+app.use(express.static('public'));
 
-        case 'eliminar':
-            if (id) {
-                eliminarProducto(id);
-            } else {
-                console.log('Por favor, proporciona un ID para eliminar un producto');
-            }
-            break;
+app.get('/', (req, res) => {
+    res.sendFile(process.cwd() + '/public/index.html');
+});
 
-        case 'servidor':
-            Servidor();
-            break;
+app.use(bodyParser.json());
 
-        case 'help':
-            help();
-            break;
+app.use('/api/products', productsRouter);
+app.use('/auth', authRouter);
 
-        default:
-            console.log('Comando no reconocido. Usa "npm start help" para conocer los comandos');
-            break;
+app.use((req, res, next) => {
+    res.status(404).json({
+        error: 'Not found',
+        message: 'La ruta solicitada no existe'
+    });
+});
+
+app.use((err, req, res, next) => {
+    const status = err.status || 500;
+
+    if (err.name === 'UnauthorizedError') {
+        return res.status(401).json({ error: 'Unauthorized', message: 'Token inválido o ausente' });
     }
-}
 
-Menu();
+    res.status(status).json({
+        error: status === 500 ? 'Internal Server Error' : 'Error',
+        message: err.message || 'Ocurrió un error inesperado'
+    });
+});
+
+app.listen(PORT, () => {
+    console.log(`Servidor escuchando en http://localhost:${PORT}`);
+    open(`http://localhost:${PORT}`);
+});
