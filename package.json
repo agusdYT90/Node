@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "help": "node help.js"
+    "help": "node helps.js"
   },
   "keywords": [],
   "author": "agusdYT",
